@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arisa Corner</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Stars background -->
+  <div class="stars" id="stars"></div>
+  <div class="stars2" id="stars2"></div>
+  <div class="nebula"></div>
+
+  <!-- ===== HOME PAGE ===== -->
+  <div id="page-home" class="page active">
+    <header class="site-header">
+      <div class="logo-wrap">
+        <div>
+          <div class="logo-sub">ดูดวงรายเดือน • ปี 2026</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="home-main">
+      <div class="hero-text">
+        <h1 class="hero-title"></h1>
+        <p class="hero-desc">เป็นการทำนายดวงรายเดือนของปีนี้ค่ะ อิงตามราศี(นับแบบสากล)</p>
+      </div>
+
+      <!-- Birthdate Calculator
+      <div class="card card-calc">
+        <div class="card-label">✦ ถ้าไม่รู้ราศีตัวเองคำนวณราศีจากวันเกิดได้ค่ะ</div>
+        <div class="birthdate-row">
+          <input type="date" id="birthdate-input" class="input-styled" placeholder="วันเกิดของคุณ" />
+          <button class="btn-calc" onclick="calcZodiac()">คำนวณ</button>
+        </div>
+        <div id="calc-result" class="calc-result hidden"></div>
+      </div> -->
+
+      <!-- Zodiac Grid -->
+      <div class="card card-zodiac">
+        <div class="card-label">✦ เลือกราศีของคุณ</div>
+        <div class="zodiac-grid" id="zodiac-grid">
+          <!-- filled by JS -->
+        </div>
+      </div>
+
+         <!-- Birthdate Calculator -->
+         <div class="card card-calc">
+          <div class="card-label">✦ ถ้าไม่รู้ราศีตัวเองคำนวณราศีจากวันเกิดได้ค่ะ</div>
+          <div class="birthdate-row">
+            <input type="date" id="birthdate-input" class="input-styled" placeholder="วันเกิดของคุณ" />
+            <button class="btn-calc" onclick="calcZodiac()">คำนวณ</button>
+          </div>
+          <div id="calc-result" class="calc-result hidden"></div>
+        </div>
+
+      <!-- Month + Year -->
+      <div class="card card-month">
+        <div class="card-label">✦ เลือกเดือนทที่ต้องการดูดวง</div>
+        <div class="month-row">
+          <select id="sel-month" class="input-styled">
+            <option value="5">เลือกเดือน</option>
+            <option value="6">มิถุนายน</option>
+            <option value="7">กรกฎาคม</option>
+            <option value="8">สิงหาคม</option>
+            <option value="9">กันยายน</option>
+            <option value="10">ตุลาคม</option>
+            <option value="11">พฤศจิกายน</option>
+            <option value="12">ธันวาคม</option>
+          </select>
+          <select id="sel-year" class="input-styled">
+            <option value="2569">พ.ศ. 2569</option>
+          </select>
+        </div>
+      </div>
+
+      
+
+      <button class="btn-main" id="btn-reveal" onclick="goToResult()">
+        <span class="btn-icon"></span> รับคำทำนาย
+      </button>
+      <div id="err-msg" class="err-msg hidden">กรุณาเลือกราศีและเดือนก่อนนะคะ</div>
+    </main>
+
+    <footer class="site-footer">
+      <p>สำหรับความบันเทิงเท่านั้นนะคะ</p>
+      <p class="credit">by <strong>Jacob Zush</strong></p>
+    </footer>
+  </div>
+
+  <!-- ===== RESULT PAGE ===== -->
+  <div id="page-result" class="page">
+    <header class="site-header">
+      <div class="logo-wrap">
+        <button class="btn-back" onclick="goBack()">← กลับ</button>
+        <div class="logo-moon"></div>
+        <div>
+          <div class="logo-title"></div>
+          <div class="logo-sub">ผลดวงของคุณ</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Envelope animation -->
+    <div id="envelope-wrap" class="envelope-wrap">
+      <div class="envelope" id="envelope">
+        <div class="envelope-flap"></div>
+        <div class="envelope-body">
+          <div class="envelope-star"></div>
+          <div class="envelope-text"></div>
+          <div class="envelope-moon"></div>
+        </div>
+      </div>
+      <div class="envelope-sparkles" id="sparkles"></div>
+    </div>
+
+    <main class="result-main hidden" id="result-content">
+      <!-- Result header -->
+      <div class="result-header">
+        <div class="result-zodiac-icon" id="res-icon"></div>
+        <div class="result-zodiac-name" id="res-name"></div>
+        <div class="result-period" id="res-period"></div>
+        <!-- Star rating overall -->
+        <div class="overall-stars" id="overall-stars"></div>
+      </div>
+
+      <!-- Cards -->
+      <div class="result-cards" id="result-cards">
+        <!-- filled by JS -->
+      </div>
+
+      
+      <button class="btn-main btn-again" onclick="goBack()">ดูดวงราศีอื่น</button>
+    </main>
+
+    <footer class="site-footer">
+      <p>สำหรับความบันเทิงเท่านั้นนะคะ</p>
+      <p class="credit">by <strong>Jacob Zush</strong></p>
+    </footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

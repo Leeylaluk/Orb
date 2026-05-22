@@ -1,0 +1,895 @@
+/* ============================================================
+   ARISA CORNER – Thai Monthly Horoscope
+   Mystic / Spiritual dark theme with gold accents
+   ============================================================ */
+
+   :root {
+    --bg:          #07051a;
+    --bg2:         #0e0b2e;
+    --card-bg:     rgba(255,255,255,0.045);
+    --card-border: rgba(180,140,255,0.18);
+    --purple:      #9b6dff;
+    --purple-l:    #c4a0ff;
+    --gold:        #f0c060;
+    --gold-l:      #ffe299;
+    --navy:        #1a1550;
+    --text:        #e8e0ff;
+    --text-muted:  #9b94c0;
+    --accent:      #ff7eb3;
+    --radius:      18px;
+    --shadow:      0 8px 40px rgba(100,60,255,0.18);
+  }
+  
+  /* ---- Reset ---- */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+  
+  /* ============================================================
+     STAR BACKGROUND
+     ============================================================ */
+  .stars, .stars2 {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  .nebula {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 30%, rgba(100,60,200,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 35% at 80% 70%, rgba(60,30,160,0.1) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 60% 20%, rgba(180,80,120,0.06) 0%, transparent 70%);
+  }
+  
+  /* ============================================================
+     PAGES
+     ============================================================ */
+  .page {
+    display: none;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+    flex-direction: column;
+  }
+  .page.active { display: flex; }
+  
+  /* ============================================================
+     HEADER
+     ============================================================ */
+  .site-header {
+    padding: 20px 28px;
+    border-bottom: 1px solid rgba(155,109,255,0.12);
+    backdrop-filter: blur(12px);
+    background: rgba(7,5,26,0.6);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  
+  .logo-moon {
+    font-size: 2rem;
+    filter: drop-shadow(0 0 10px rgba(180,140,255,0.7));
+    animation: moonFloat 4s ease-in-out infinite;
+  }
+  @keyframes moonFloat {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50%      { transform: translateY(-6px) rotate(5deg); }
+  }
+  
+  .logo-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(240,192,96,0.5);
+  }
+  
+  .logo-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+  
+  .btn-back {
+    background: none;
+    border: 1px solid var(--card-border);
+    color: var(--purple-l);
+    padding: 8px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  .btn-back:hover {
+    background: rgba(155,109,255,0.15);
+    border-color: var(--purple);
+  }
+  
+  /* ============================================================
+     HOME MAIN
+     ============================================================ */
+  .home-main {
+    flex: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 36px 20px 60px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  
+  /* Hero */
+  .hero-text { text-align: center; padding: 10px 0 4px; }
+  
+  .hero-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    font-weight: 600;
+    line-height: 1.3;
+    background: linear-gradient(135deg, var(--gold-l) 0%, var(--purple-l) 60%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    animation: titleGlow 3s ease-in-out infinite alternate;
+  }
+  @keyframes titleGlow {
+    from { filter: brightness(1); }
+    to   { filter: brightness(1.15); }
+  }
+  
+  .hero-desc {
+    margin-top: 12px;
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  /* Cards */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    backdrop-filter: blur(8px);
+    box-shadow: var(--shadow);
+    animation: cardIn 0.5s ease both;
+  }
+  
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  
+  .card-label {
+    font-size: 0.82rem;
+    color: var(--gold);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  
+  /* Birthdate calc */
+  .birthdate-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .input-styled {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    color: var(--text);
+    padding: 12px 16px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    min-width: 120px;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .input-styled:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(155,109,255,0.2);
+  }
+  .input-styled option {
+    background: #1a1550;
+    color: var(--text);
+  }
+  
+  /* datetime-local / date picker fix */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) opacity(0.5);
+    cursor: pointer;
+  }
+  
+  .btn-calc {
+    background: linear-gradient(135deg, #5d3daa, #3d2080);
+    border: 1px solid rgba(155,109,255,0.4);
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .btn-calc:hover {
+    background: linear-gradient(135deg, #7b50d0, #5530a0);
+    transform: translateY(-1px);
+  }
+  
+  .calc-result {
+    margin-top: 14px;
+    padding: 14px 18px;
+    background: rgba(155,109,255,0.12);
+    border: 1px solid rgba(155,109,255,0.3);
+    border-radius: 12px;
+    font-size: 0.95rem;
+    color: var(--purple-l);
+    text-align: center;
+    animation: cardIn 0.3s ease;
+  }
+  
+  /* Zodiac Grid */
+  .zodiac-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  
+  @media (max-width: 500px) {
+    .zodiac-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  
+  .zodiac-btn {
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid rgba(155,109,255,0.18);
+    border-radius: 14px;
+    padding: 12px 6px 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+    color: var(--text);
+    font-family: 'Sarabun', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .zodiac-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(155,109,255,0.12), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  
+  .zodiac-btn:hover { 
+    border-color: var(--purple); 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(155,109,255,0.25);
+  }
+  .zodiac-btn:hover::before { opacity: 1; }
+  
+  .zodiac-btn.selected {
+    border-color: var(--gold);
+    background: rgba(240,192,96,0.1);
+    box-shadow: 0 0 20px rgba(240,192,96,0.2), inset 0 0 15px rgba(240,192,96,0.05);
+  }
+  .zodiac-btn.selected::before { opacity: 1; background: linear-gradient(135deg, rgba(240,192,96,0.1), transparent); }
+  
+  .zodiac-emoji { font-size: 1.6rem; display: block; margin-bottom: 5px; }
+  .zodiac-th { font-size: 0.78rem; font-weight: 600; color: var(--text); display: block; }
+  .zodiac-date { font-size: 0.65rem; color: var(--text-muted); display: block; margin-top: 2px; line-height: 1.3; }
+  
+  /* Month row */
+  .month-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  /* Main button */
+  .btn-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #7b40d0 0%, #4a1f9a 50%, #8b3080 100%);
+    border: 1px solid rgba(240,192,96,0.3);
+    color: #fff;
+    padding: 18px 40px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    width: 100%;
+    transition: all 0.3s;
+    box-shadow: 0 4px 30px rgba(120,60,200,0.4);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+  }
+  
+  .btn-main::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.5s;
+  }
+  .btn-main:hover::after { left: 150%; }
+  .btn-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(120,60,200,0.55);
+  }
+  .btn-main:active { transform: translateY(0); }
+  
+  .btn-icon { font-size: 1.3rem; }
+  
+  .err-msg {
+    text-align: center;
+    color: var(--accent);
+    font-size: 0.9rem;
+    animation: shake 0.4s ease;
+  }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25%      { transform: translateX(-8px); }
+    75%      { transform: translateX(8px); }
+  }
+  
+  
+
+  .envelope-wrap {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    background: rgba(7,5,26,0.92);
+    backdrop-filter: blur(10px);
+  }
+  
+  .envelope {
+    width: 260px;
+    height: 180px;
+    position: relative;
+    animation: envelopePulse 0.6s ease-in-out infinite alternate;
+  }
+  @keyframes envelopePulse {
+    from { transform: scale(1) rotate(-2deg); }
+    to   { transform: scale(1.04) rotate(2deg); }
+  }
+  
+  .envelope-flap {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(160deg, #3d2090 0%, #5d3ab0 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    transform-origin: top center;
+    animation: openFlap 1.2s ease 0.8s forwards;
+    z-index: 2;
+  }
+  @keyframes openFlap {
+    0%   { transform: rotateX(0deg); }
+    100% { transform: rotateX(-160deg); }
+  }
+
+
+/* Mouse trail glow eff ect - golden dust particles */
+.mouse-trail {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240,192,96,0.9) 0%, rgba(240,192,96,0.4) 50%, transparent 70%);
+  box-shadow: 0 0 12px rgba(240,192,96,0.8), 0 0 24px rgba(255,200,100,0.4);
+  pointer-events: none;
+  z-index: 9999;
+  filter: blur(2px);
+  animation: trailFade 0.8s ease-out forwards;
+}
+
+@keyframes trailFade {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+  .envelope-body {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, #1a1060 0%, #2d1880 100%);
+    border-radius: 10px;
+    border: 1.5px solid rgba(155,109,255,0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .envelope-star {
+    font-size: 2rem;
+    color: var(--gold);
+    animation: rotateStar 2s linear infinite;
+  }
+  @keyframes rotateStar {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  
+  .envelope-text {
+    font-size: 0.85rem;
+    color: var(--purple-l);
+    font-family: 'Sarabun', sans-serif;
+  }
+  
+  .envelope-moon { font-size: 1.5rem; }
+  
+  .envelope-sparkles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  
+  .sparkle-dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: sparkleFly 1.2s ease-out forwards;
+  }
+  @keyframes sparkleFly {
+    0%   { opacity: 1; transform: translate(0,0) scale(1); }
+    100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
+  }
+  
+  .result-main {
+    flex: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 36px 20px 70px;
+    width: 100%;
+  }
+  
+  .result-header {
+    text-align: center;
+    margin-bottom: 36px;
+    animation: cardIn 0.6s ease;
+  }
+  
+  .result-zodiac-icon {
+    font-size: 5rem;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 20px rgba(240,192,96,0.5));
+    animation: iconFloat 3s ease-in-out infinite;
+  }
+  @keyframes iconFloat {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+  
+  .result-zodiac-name {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--gold);
+    text-shadow: 0 0 25px rgba(240,192,96,0.4);
+    margin-bottom: 6px;
+  }
+  
+  .result-period {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+  }
+  
+  .overall-stars {
+    margin-top: 14px;
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+  }
+  
+  /* Result cards */
+  .result-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  .res-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 24px 26px;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .res-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .res-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    border-radius: 4px 0 0 4px;
+  }
+  
+  .res-card.cat-overview::before  { background: linear-gradient(180deg, #9b6dff, #c4a0ff); }
+  .res-card.cat-work::before      { background: linear-gradient(180deg, #60a0f0, #90c4ff); }
+  .res-card.cat-money::before     { background: linear-gradient(180deg, #f0c060, #ffe299); }
+  .res-card.cat-love::before      { background: linear-gradient(180deg, #ff7eb3, #ffb0d0); }
+  .res-card.cat-health::before    { background: linear-gradient(180deg, #60d090, #a0eebc); }
+  .res-card.cat-tips::before      { background: linear-gradient(180deg, #c060f0, #e0a0ff); }
+  
+  .res-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  
+  .res-card-icon { font-size: 1.5rem; }
+  
+  .res-card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--gold-l);
+    letter-spacing: 0.5px;
+  }
+  
+  .res-card-stars {
+    margin-left: auto;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+  }
+  
+  .res-card-body {
+    font-size: 0.97rem;
+    line-height: 1.8;
+    color: var(--text);
+    white-space: pre-line;
+  }
+  
+  .tips-section { margin-top: 14px; }
+  .tips-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .tips-list li {
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .tips-list li.do {
+    background: rgba(96,208,144,0.08);
+    border: 1px solid rgba(96,208,144,0.2);
+    color: #a0eec0;
+  }
+  .tips-list li.dont {
+    background: rgba(255,80,80,0.07);
+    border: 1px solid rgba(255,80,80,0.18);
+    color: #ffb0b0;
+  }
+  
+  .btn-again {
+    margin-top: 36px;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* 
+     FOOTER
+      */
+  .site-footer {
+    text-align: center;
+    padding: 26px 20px;
+    border-top: 1px solid rgba(155,109,255,0.1);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 2;
+  }
+  
+  .credit {
+    margin-top: 4px;
+    font-size: 0.75rem;
+    color: rgba(155,109,255,0.6);
+    letter-spacing: 0.5px;
+  }
+  .credit strong { color: var(--purple-l); }
+  
+
+  .hidden { display: none !important; }
+  
+
+  @media (max-width: 480px) {
+    .home-main { padding: 24px 14px 50px; gap: 20px; }
+    .card { padding: 18px 16px; }
+    .btn-main { font-size: 1rem; padding: 16px 28px; }
+    .result-main { padding: 24px 14px 60px; }
+    .res-card { padding: 18px 16px; }
+    .result-zodiac-name { font-size: 1.5rem; }
+    .result-zodiac-icon { font-size: 4rem; }
+  }
+
+
+
+.cat-cursor {
+  position: fixed;
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s linear;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+}
+
+.cat-cursor img,
+.cat-cursor svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+.cat-cursor.jump {
+  animation: catJump 0.3s ease-out;
+}
+
+@keyframes catJump {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -70%) scale(1.1); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+
+.cat-cursor.scratch {
+  animation: catScratch 0.2s ease-in-out;
+}
+
+@keyframes catScratch {
+  0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+  50% { transform: translate(-50%, -50%) rotate(-15deg) scale(1.2); }
+  100% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+}
+
+
+.cat-paw-print {
+  position: fixed;
+  pointer-events: none;
+  font-size: 20px;
+  z-index: 9998;
+  animation: pawFade 0.6s ease-out forwards;
+}
+
+@keyframes pawFade {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.5) translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) translateY(-10px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-25px);
+  }
+}
+
+
+.cat-fur {
+  position: fixed;
+  pointer-events: none;
+  font-size: 8px;
+  z-index: 9997;
+  animation: furFloat 1s ease-out forwards;
+}
+
+@keyframes furFloat {
+  0% {
+    opacity: 0.6;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx, 20px), var(--dy, -30px)) rotate(360deg);
+  }
+}
+
+/* ============================================================
+   GOLDEN MOUSE AURA (ออร่าสีทองตามเมาส์) - ขนาดเล็ก 70%
+   ============================================================ */
+
+/* Mouse trail glow effect - golden dust particles */
+.mouse-trail {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240,192,96,0.8) 0%, rgba(240,192,96,0.3) 50%, transparent 70%);
+  box-shadow: 0 0 6px rgba(240,192,96,0.6), 0 0 12px rgba(255,200,100,0.3);
+  pointer-events: none;
+  z-index: 9999;
+  filter: blur(1px);
+  animation: trailFade 0.6s ease-out forwards;
+}
+
+@keyframes trailFade {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+}
+
+/* Large aura glow that follows cursor - ขนาดเล็กลง */
+.cursor-aura {
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, 
+    rgba(240,192,96,0.12) 0%, 
+    rgba(240,192,96,0.06) 40%,
+    transparent 70%);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.05s linear;
+  filter: blur(5px);
+  will-change: left, top;
+}
+
+/* Extra sparkle when moving fast - เล็กลง */
+.cursor-sparkle {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffe299, #f0c060);
+  box-shadow: 0 0 4px #f0c060;
+  pointer-events: none;
+  z-index: 10000;
+  animation: sparklePulse 0.4s ease-out forwards;
+}
+
+@keyframes sparklePulse {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+/* Glowing orb that follows mouse slowly (smooth) - ขนาดเล็กลงมาก */
+.slow-glow {
+  position: fixed;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, 
+    rgba(240,192,96,0.04) 0%, 
+    rgba(240,192,96,0.02) 40%,
+    transparent 80%);
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%);
+  transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  filter: blur(10px);
+  will-change: left, top;
+}
+
+/* Special effect on cards when mouse enters - ปรับแสงให้ softer */
+.card-glow {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card-glow.card-glow-active {
+  box-shadow: 0 0 20px rgba(240,192,96,0.2), var(--shadow);
+  border-color: rgba(240,192,96,0.25);
+}
+
+/* Mouse follower for desktop only */
+@media (min-width: 768px) {
+  .cursor-aura, .slow-glow, .mouse-trail {
+    display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  .cursor-aura, .slow-glow, .mouse-trail {
+    display: none;
+  }
+}
+
+/* Golden shimmer on hover buttons - softer */
+.btn-main:hover {
+  box-shadow: 0 0 15px rgba(240,192,96,0.3), 0 8px 40px rgba(120,60,200,0.55);
+}
+
+.zodiac-btn:hover {
+  box-shadow: 0 0 12px rgba(240,192,96,0.2);
+}
+
+/* Ambient golden glow on result page */
+.result-main {
+  position: relative;
+}
+
+.result-main::before {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(ellipse at center, rgba(240,192,96,0.02) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+  transform: translate(-50%, -50%);
+}
